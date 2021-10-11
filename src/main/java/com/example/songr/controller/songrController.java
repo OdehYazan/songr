@@ -31,7 +31,7 @@ public class songrController {
         }
 
     @ResponseBody
-    @GetMapping("/Albums")
+    @GetMapping("/albums")
     public List<Album> getClassInformation() {
         Album album = new Album("yazan","yazan","yazan",12,1000);
         Album album2 = new Album("x","x","yxn",12,1000);
