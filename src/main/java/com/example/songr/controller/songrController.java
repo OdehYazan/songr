@@ -2,7 +2,10 @@ package com.example.songr.controller;
 
 
 import com.example.songr.model.Album;
+import com.example.songr.model.Dto;
+import com.example.songr.model.Song;
 import com.example.songr.repository.AlbumRepository;
+import com.example.songr.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,8 @@ public class songrController {
 
     @Autowired
     private AlbumRepository albumRepository;
+    @Autowired
+    private SongRepository songRepository;
 
 
     @GetMapping("/hello")
@@ -64,17 +69,36 @@ public String getAlbums(Model model, Model model2) {
 }
 
     @PostMapping("/albums")
-    public RedirectView createAlbum(@ModelAttribute Album album) { // modelattribute when working with fomr data
+    public RedirectView createAlbum(@ModelAttribute Album album) { // model attribute when working with form data
         albumRepository.save(album);
         return new RedirectView("albums");
     }
 
-//    @ResponseBody
-//    @PostMapping("/x")
-//    public Album createNewPost(@RequestBody Album post) { // when working with json data
-//        Album newPost = albumRepository.save(post);
-//        return newPost;
-//    }
+ @PostMapping("/select")
+    public RedirectView addAlbum(@ModelAttribute Album album) {
+        albumRepository.save(album);
+
+        // we should then show the post creation page
+        return new RedirectView("/song");
+    }
+    @GetMapping("/select")
+    public String getSelect() {
+        return "select";
+    }
+    @PostMapping("/song")
+    public RedirectView createNewBlogPost(@ModelAttribute Dto dto) { // modelattribute when working with fomr data
+        Album album = albumRepository.findAlbumByTitle(dto.getAlbum().to);
+        Song newSong = new Song(dto.getTitle(), dto.getLength(), dto.getTrackNumber(),album);
+        songRepository.save(newSong);
+
+        return new RedirectView("song");
+    }
+    @GetMapping("/song")
+    public String getSongs(Model model) {
+        model.addAttribute("songs", songRepository.findAll());
+        return "song";
+    }
+
 }
 
 

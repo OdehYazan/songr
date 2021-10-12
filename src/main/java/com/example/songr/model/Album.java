@@ -2,6 +2,7 @@ package com.example.songr.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Album {
@@ -23,16 +24,21 @@ public class Album {
     public void setId(Long id) {
         this.id = id;
     }
-public Album(){
 
-}
+    @OneToMany(mappedBy ="album")
+    private List<Song> newSong;
+
+    public Album() {
+
+    }
+
     public Album(String title, String artist, String imageUrl, int songCount, int length) {
         this.title = title;
         this.artist = artist;
         this.imageUrl = imageUrl;
         this.songCount = songCount;
         this.length = length;
-     
+
 
     }
 
