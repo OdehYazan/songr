@@ -11,7 +11,7 @@ public class Song {
 
 
     private String title;
-    private double length;
+    private int length;
     private int trackNumber;
 
     @ManyToOne
@@ -26,7 +26,7 @@ public class Song {
 
     }
 
-    public Song( String title, double length, int trackNumber, Album album) {
+    public Song( String title, int length, int trackNumber, Album album) {
 //        this.id = id;
         this.title = title;
         this.length = length;
@@ -46,7 +46,7 @@ public class Song {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(int length) {
         this.length = length;
     }
 

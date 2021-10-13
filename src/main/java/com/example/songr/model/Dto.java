@@ -2,12 +2,19 @@ package com.example.songr.model;
 
 public class Dto {
     private String title;
-    private double length;
+    private int length;
     private int trackNumber;
     private String album;
 
     public Dto(){
 
+    }
+
+    public Dto(String title, int length, int trackNumber, String album) {
+        this.title = title;
+        this.length = length;
+        this.trackNumber = trackNumber;
+        this.album = album;
     }
 
     public String getTitle() {
@@ -22,7 +29,7 @@ public class Dto {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(int length) {
         this.length = length;
     }
 

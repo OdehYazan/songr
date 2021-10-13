@@ -56,9 +56,9 @@ public class songrController {
 //    }
 @GetMapping("/albums")
 public String getAlbums(Model model, Model model2) {
-    Album album = new Album("My life ","yazan","https://pica.zhimg.com/f0dc56584_l.jpg?source=172ae18b",11,1000);
-    Album album2 = new Album("His life ","malik","https://pica.zhimg.com/f0dc56584_l.jpg?source=172ae18b",12,2000);
-    Album album3 = new Album("There life's","mohammd","https://avatarfiles.alphacoders.com/737/73738.png",13,3000);
+    Album album = new Album("MyLife","yazan","https://pica.zhimg.com/f0dc56584_l.jpg?source=172ae18b",11,1000);
+    Album album2 = new Album("HisLife","malik","https://pica.zhimg.com/f0dc56584_l.jpg?source=172ae18b",12,2000);
+    Album album3 = new Album("ThereLife's","mohammd","https://avatarfiles.alphacoders.com/737/73738.png",13,3000);
     List<Album> albums=new ArrayList<>();
     albums.add(album);
     albums.add(album2);
@@ -68,27 +68,27 @@ public String getAlbums(Model model, Model model2) {
     return "albums";
 }
 
+
+
+
     @PostMapping("/albums")
     public RedirectView createAlbum(@ModelAttribute Album album) { // model attribute when working with form data
         albumRepository.save(album);
         return new RedirectView("albums");
     }
 
- @PostMapping("/select")
-    public RedirectView addAlbum(@ModelAttribute Album album) {
-        albumRepository.save(album);
 
-        // we should then show the post creation page
-        return new RedirectView("/song");
-    }
+
     @GetMapping("/select")
     public String getSelect() {
         return "select";
     }
+
     @PostMapping("/song")
-    public RedirectView createNewBlogPost(@ModelAttribute Dto dto) { // modelattribute when working with fomr data
-        Album album = albumRepository.findAlbumByTitle(dto.getAlbum().to);
-        Song newSong = new Song(dto.getTitle(), dto.getLength(), dto.getTrackNumber(),album);
+    public RedirectView createNewBlogPost(@ModelAttribute Dto dto) { // modelattribute when working with form data
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+dto.getAlbum());
+        Album album = albumRepository.findAlbumByTitle(dto.getAlbum()).orElseThrow();
+        Song newSong = new Song(dto.getTitle(), (int) dto.getLength(), dto.getTrackNumber(),album);
         songRepository.save(newSong);
 
         return new RedirectView("song");
@@ -97,6 +97,13 @@ public String getAlbums(Model model, Model model2) {
     public String getSongs(Model model) {
         model.addAttribute("songs", songRepository.findAll());
         return "song";
+    }
+    @GetMapping("/albums/{album}")
+    public String findOneAlbum(@PathVariable String album, Model model) {
+        Album oneAlbum = albumRepository.findAlbumByTitle(album).orElseThrow();
+        model.addAttribute("album", oneAlbum);
+
+        return "oneAlbum";
     }
 
 }

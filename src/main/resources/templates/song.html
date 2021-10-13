@@ -36,10 +36,10 @@
 
 <ul th:each="song: ${songs}">
     <p> Id <span th:text="${song.id}"></span></p>
-    <p> Author <span th:text="${song.album.title}"></span></p>
-    <p> Content <span th:text="${song.title}"></span></p>
-    <p> Created <span th:text="${song.length}"></span></p>
-    <p> Created <span th:text="${song.trackNumber}"></span></p>
+    <p> Album <span th:text="${song.album.title}"></span></p>
+    <p> Song Name <span th:text="${song.title}"></span></p>
+    <p> Play time <span th:text="${song.length}"></span></p>
+    <p> Track Number <span th:text="${song.trackNumber}"></span></p>
 </ul>
 
 </body>
