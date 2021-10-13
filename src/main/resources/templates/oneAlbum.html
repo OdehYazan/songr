@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SELECT ALBUM</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="div1" th:each="album : ${album}">
+    <p th:text="'Album title : '+ ${album.title}"  > </p>
+    <p th:text= " 'Artist Name :' +${album.artist}"> </p>
+    <p th:text= " 'Number of songs :' + ${album.songCount}"></p>
+    <p th:text=" 'Total length :' +${album.length}"></p>
+    <img th:src="${album.imageUrl}" class="img" />
+</div>
+
+
+</body>
+</html>
